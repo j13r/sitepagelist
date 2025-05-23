@@ -43,7 +43,7 @@
 
     async function fetchPages() {
       const pageList = document.getElementById("pageList");
-      const queryUrl = `https://www.arcgis.com/sharing/rest/search?q=orgid:${orgId}+type:"Hub Page"&f=json&num=100`;
+      const queryUrl = `https://mapsqa.arcgis.com/sharing/rest/search?q=orgid:${orgId}+type:"Hub Page"&f=json&num=100`;
 
       try {
         const response = await fetch(queryUrl);
