@@ -41,10 +41,10 @@
   <script>
     const orgId = "H2DkxbdEtb9NorU9";
     const corsProxy = "https://corsproxy.io/?";
-    const targetUrl = `https://mapsqa.arcgis.com/sharing/rest/search?q=orgid:${orgId}+type:"Hub Page"&f=json&num=100`;
-    alert(`targetUrl is {targetUrl}`)
-    const queryUrl = corsProxy + encodeURIComponent(targetUrl);
-    alert(`queryUrl is {queryUrl}`)
+    const  targetUrl = `https://mapsqa.arcgis.com/sharing/rest/search?q=orgid:${orgId}+type:"Hub Page"&f=json&num=100`;
+    alert(`targetUrl is ${targetUrl}`)
+    const  queryUrl = corsProxy + encodeURIComponent(targetUrl);
+    alert(`queryUrl is ${queryUrl}`)
 
     async function fetchPages() {
       const pageList = document.getElementById("pageList");
