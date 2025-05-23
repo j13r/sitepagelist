@@ -58,7 +58,7 @@
 
         pageList.innerHTML = "";
         pages.forEach(page => {
-          const pageUrl = page.url || `https://hub.arcgis.com/pages/${page.id}`; // fallback
+          const pageUrl = page.url || `https://hubqa.arcgis.com/pages/${page.id}`; // fallback
           const link = document.createElement("a");
           link.href = pageUrl;
           link.textContent = page.title || page.name || page.id;
