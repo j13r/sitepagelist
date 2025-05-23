@@ -49,7 +49,7 @@
     async function fetchPages() {
       const pageList = document.getElementById("pageList");
 
-      alert (`pageList is ${pageList}`);
+      alert (`pageList[0] is ${pageList[0]}`);
 
       try {
         const response = await fetch(queryUrl);
