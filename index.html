@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ArcGIS Hub Page Index</title>
+  <title>Hub Page Index</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
@@ -39,31 +39,28 @@
   <ul id="pageList"><li>Loading pages...</li></ul>
 
   <script>
-    async function fetchSitePages() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const siteId = urlParams.get("siteId"); // Get site ID from query string
+    const orgId = "H2DkxbdEtb9NorU9";
+    const siteDomain = "https://jeremy-site-for-page-testing-qa-bas-p-hub.hubqa.arcgis.com";
+
+    async function fetchPages() {
       const pageList = document.getElementById("pageList");
-
-      if (!siteId) {
-        pageList.innerHTML = '<li class="error">Error: Missing siteId in URL. Append ?siteId=YOUR_SITE_ID</li>';
-        return;
-      }
-
-      const relatedUrl = `https://www.arcgis.com/sharing/rest/content/items/${siteId}/relatedItems?relationshipType=Service2Data&type=Hub%20Page&f=json`;
+      const queryUrl = `https://www.arcgis.com/sharing/rest/search?q=orgid:${orgId}+type:"Hub Page"&f=json&num=100`;
 
       try {
-        const response = await fetch(relatedUrl);
+        const response = await fetch(queryUrl);
         const data = await response.json();
 
-        const pages = data.relatedItems || [];
+        const filteredPages = (data.results || []).filter(page =>
+          page.url && page.url.startsWith(siteDomain)
+        );
 
-        if (pages.length === 0) {
+        if (filteredPages.length === 0) {
           pageList.innerHTML = "<li>No pages found for this site.</li>";
           return;
         }
 
         pageList.innerHTML = "";
-        pages.forEach(page => {
+        filteredPages.forEach(page => {
           const link = document.createElement("a");
           link.href = page.url;
           link.textContent = page.title || page.name;
@@ -79,7 +76,7 @@
       }
     }
 
-    fetchSitePages();
+    fetchPages();
   </script>
 </body>
 </html>
