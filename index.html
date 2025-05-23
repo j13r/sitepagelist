@@ -35,12 +35,11 @@
 </head>
 <body>
 
-  <h1>Pages on This Site</h1>
+  <h1>Published Hub Pages</h1>
   <ul id="pageList"><li>Loading pages...</li></ul>
 
   <script>
     const orgId = "H2DkxbdEtb9NorU9";
-    const siteDomain = "https://jeremy-site-for-page-testing-qa-bas-p-hub.hubqa.arcgis.com";
 
     async function fetchPages() {
       const pageList = document.getElementById("pageList");
@@ -50,20 +49,19 @@
         const response = await fetch(queryUrl);
         const data = await response.json();
 
-        const filteredPages = (data.results || []).filter(page =>
-          page.url && page.url.startsWith(siteDomain)
-        );
+        const pages = data.results || [];
 
-        if (filteredPages.length === 0) {
-          pageList.innerHTML = "<li>No pages found for this site.</li>";
+        if (pages.length === 0) {
+          pageList.innerHTML = "<li>No pages found.</li>";
           return;
         }
 
         pageList.innerHTML = "";
-        filteredPages.forEach(page => {
+        pages.forEach(page => {
+          const pageUrl = page.url || `https://hub.arcgis.com/pages/${page.id}`; // fallback
           const link = document.createElement("a");
-          link.href = page.url;
-          link.textContent = page.title || page.name;
+          link.href = pageUrl;
+          link.textContent = page.title || page.name || page.id;
           link.target = "_blank";
 
           const listItem = document.createElement("li");
