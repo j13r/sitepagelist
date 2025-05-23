@@ -40,19 +40,20 @@
 
   <script>
     const orgId = "H2DkxbdEtb9NorU9";
+    const corsProxy = "https://corsproxy.io/?";
+    const targetUrl = `https://mapsqa.arcgis.com/sharing/rest/search?q=orgid:${orgId}+type:"Hub Page"&f=json&num=100`;
+    alert(`targetUrl is {targetUrl}`)
+    const queryUrl = corsProxy + encodeURIComponent(targetUrl);
+    alert(`queryUrl is {queryUrl}`)
 
     async function fetchPages() {
       const pageList = document.getElementById("pageList");
-      const queryUrl = `https://mapsqa.arcgis.com/sharing/rest/search?q=orgid=${orgId}+type:"Hub Page"&f=json&num=100`;
-      // alert(queryUrl);
 
       try {
         const response = await fetch(queryUrl);
         const data = await response.json();
 
         const pages = data.results || [];
-
-        alert(pages)
 
         if (pages.length === 0) {
           pageList.innerHTML = "<li>No pages found.</li>";
@@ -61,7 +62,7 @@
 
         pageList.innerHTML = "";
         pages.forEach(page => {
-          const pageUrl = page.url || `https://hubqa.arcgis.com/pages/${page.id}`; // fallback
+          const pageUrl = page.url || `https://hubqa.arcgis.com/pages/${page.id}`;
           const link = document.createElement("a");
           link.href = pageUrl;
           link.textContent = page.title || page.name || page.id;
@@ -81,3 +82,4 @@
   </script>
 </body>
 </html>
+
