@@ -44,10 +44,12 @@
     const  targetUrl = `https://mapsqa.arcgis.com/sharing/rest/search?q=orgid:${orgId}+type:"Hub Page"&f=json&num=100`;
     alert(`targetUrl is ${targetUrl}`)
     const  queryUrl = corsProxy + encodeURIComponent(targetUrl);
-    alert(`queryUrl is ${queryUrl}`)
+    alert(`queryUrl is ${queryUrl}`);
 
     async function fetchPages() {
       const pageList = document.getElementById("pageList");
+
+      alert (`pageList is ${pageList}`);
 
       try {
         const response = await fetch(queryUrl);
@@ -63,6 +65,7 @@
         pageList.innerHTML = "";
         pages.forEach(page => {
           const pageUrl = page.url || `https://hubqa.arcgis.com/pages/${page.id}`;
+          alert(`pageUrl is ${pageUrl}`);
           const link = document.createElement("a");
           link.href = pageUrl;
           link.textContent = page.title || page.name || page.id;
