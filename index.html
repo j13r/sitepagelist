@@ -44,13 +44,15 @@
     async function fetchPages() {
       const pageList = document.getElementById("pageList");
       const queryUrl = `https://mapsqa.arcgis.com/sharing/rest/search?q=orgid=${orgId}+type:"Hub Page"&f=json&num=100`;
-      alert(queryUrl);
+      // alert(queryUrl);
 
       try {
         const response = await fetch(queryUrl);
         const data = await response.json();
 
         const pages = data.results || [];
+
+        alert(pages)
 
         if (pages.length === 0) {
           pageList.innerHTML = "<li>No pages found.</li>";
