@@ -42,6 +42,7 @@
     const orgId = "H2DkxbdEtb9NorU9";
     const encodedQuery = encodeURIComponent(`https://mapsqa.arcgis.com/sharing/rest/search?q=orgid:${orgId}+type:"Hub Page"&f=json&num=100`);
     const queryUrl = `https://api.allorigins.win/get?url=${encodedQuery}`;
+    alert(`${queryUrl}`);
 
     async function fetchPages() {
       const pageList = document.getElementById("pageList");
