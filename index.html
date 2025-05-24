@@ -40,17 +40,16 @@
 
   <script>
     const orgId = "H2DkxbdEtb9NorU9";
-    const queryUrl = `https://mapsqa.arcgis.com/sharing/rest/search?q=orgid:H2DkxbdEtb9NorU9+type:"Hub Page"&f=json&num=100`;
-    alert(`queryUrl is ${queryUrl}`);
+    const encodedQuery = encodeURIComponent(`https://mapsqa.arcgis.com/sharing/rest/search?q=orgid:${orgId}+type:"Hub Page"&f=json&num=100`);
+    const queryUrl = `https://api.allorigins.win/get?url=${encodedQuery}`;
 
     async function fetchPages() {
       const pageList = document.getElementById("pageList");
 
-      alert (`pageList[0] is ${pageList[0]}`);
-
       try {
         const response = await fetch(queryUrl);
-        const data = await response.json();
+        const proxyResult = await response.json();
+        const data = JSON.parse(proxyResult.contents);
 
         const pages = data.results || [];
 
@@ -62,7 +61,6 @@
         pageList.innerHTML = "";
         pages.forEach(page => {
           const pageUrl = page.url || `https://hubqa.arcgis.com/pages/${page.id}`;
-          alert(`pageUrl is ${pageUrl}`);
           const link = document.createElement("a");
           link.href = pageUrl;
           link.textContent = page.title || page.name || page.id;
